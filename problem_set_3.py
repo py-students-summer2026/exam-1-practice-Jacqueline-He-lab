@@ -31,3 +31,32 @@ import random
 # Each time the user guesses, they are immediately informed whether they guessed correctly or not, with the printed output, "Correct!" or "Wrong!"
 # If at any time, the user enters an invalid response, the program immediately prints out the text, "Invalid response!" and does not print out anything further.
 # At the end, the function, assuming the user has entered all valid guesses, the program prints out the percent of guesses that user guessed correctly, following the format: "You guessed 75% of the random numbers correctly."
+
+def get_random_int(min_val, max_val):
+    return random.randint(min_val, max_val)
+
+def get_guess(max_value):
+    secret = get_random_int(1, max_value)
+    try:
+        guess = int(input(f"Guess a number between 1 and {max_value}: "))
+    except ValueError:
+        return -1
+    if guess < 1 or guess > max_value:
+        return -1
+    return guess == secret
+
+def play_game():
+    total = 4
+    correct = 0
+    for i in range(total):
+        result = get_guess(5)
+        if result == -1:
+            print("Invalid response!")
+            return
+        if result:
+            print("Correct!")
+            correct += 1
+        else:
+            print("Wrong!")
+    percent = int(correct / total * 100)
+    print(f"You guessed {percent}% of the random numbers correctly.")
